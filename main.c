@@ -18,8 +18,6 @@ int main(int argc, char *argv[]) {
 	return 0;
 }
 
-
-
 void card_test(void) {
 
 	char *q1 = "Simple Question";
@@ -28,5 +26,7 @@ void card_test(void) {
 
 	assert(0 == strcmp(q1, card_get_question(c1)));
 	assert(0 == strcmp(a1, card_get_answer(c1)));
+
+	card_dtor(c1);
 
 }

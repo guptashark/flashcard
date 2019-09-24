@@ -34,4 +34,11 @@ card_get_answer
 	return c->answer;
 }
 
-
+void
+card_dtor
+(struct card *c)
+{
+	free(c->question);
+	free(c->answer);
+	free(c);
+}

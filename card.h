@@ -21,4 +21,8 @@ char *
 card_get_answer
 (struct card *c);
 
+void
+card_dtor
+(struct card *c);
+
 #endif
