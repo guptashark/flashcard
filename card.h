@@ -3,12 +3,15 @@
 
 struct card { 
 	char *question;
+	unsigned int q_len;
+
 	char *answer;
+	unsigned int a_len;
 };
 
 struct card *
 card_ctor
-(char *question, char *answer);
+(char *question, unsigned int q_len, char *answer, unsigned int a_len);
 
 char *
 card_get_question

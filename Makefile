@@ -1,7 +1,7 @@
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra -std=c11
 
-SRC = main.c
+SRC = main.c card.c
 
 all: 
 	$(CC) $(CFLAGS) $(SRC) -o flashcard.out
