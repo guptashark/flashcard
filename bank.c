@@ -2,10 +2,10 @@
 
 #include "bank.h"
 
-struct bank *
-bank_ctor(void) {
+struct pack *
+pack_ctor(void) {
 
-	struct bank *b = malloc(sizeof(struct bank));
+	struct pack *b = malloc(sizeof(struct pack));
 
 	// default initialization
 	b->num_cards = 0;
@@ -16,12 +16,12 @@ bank_ctor(void) {
 }
 
 unsigned int
-bank_get_num_cards(struct bank *b) {
+pack_get_num_cards(struct pack *b) {
 	return b->num_cards;
 }
 
 void
-bank_add_card(struct bank *b, struct card *c) {
+pack_add_card(struct pack *b, struct card *c) {
 	
 	if(b->num_cards == b->capacity) {
 		b->capacity = b->capacity + 32;
@@ -38,7 +38,7 @@ bank_add_card(struct bank *b, struct card *c) {
 }
 
 void 
-bank_dtor(struct bank *b) {
+pack_dtor(struct pack *b) {
 	
 	for(unsigned int i = 0; i < b->num_cards; i++) {
 		card_dtor(b->cards[i]);

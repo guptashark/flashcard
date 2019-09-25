@@ -1,25 +1,25 @@
-#ifndef __BANK_H__
-#define __BANK_H__
+#ifndef __PACK_H__
+#define __PACK_H__
 
 #include "card.h"
 
-struct bank {
+struct pack {
 
 	struct card **cards;
 	unsigned int num_cards;
 	unsigned int capacity;
 };
 
-struct bank *
-bank_ctor(void);
+struct pack *
+pack_ctor(void);
 
 unsigned int
-bank_get_num_cards(struct bank *b);
+pack_get_num_cards(struct pack *b);
 
 void
-bank_add_card(struct bank *b, struct card *c);
+pack_add_card(struct pack *b, struct card *c);
 
 void
-bank_dtor(struct bank *b);
+pack_dtor(struct pack *b);
 
 #endif
