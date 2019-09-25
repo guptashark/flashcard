@@ -2,10 +2,12 @@
 #include <string.h>
 #include <assert.h>
 
+#include "bank.h"
 #include "card.h"
 
 
 void card_test(void);
+void bank_test(void);
 
 int main(int argc, char *argv[]) {
 
@@ -29,4 +31,19 @@ void card_test(void) {
 
 	card_dtor(c1);
 
+}
+
+void bank_test(void) {
+
+	struct bank *b = bank_ctor();
+	char *q = "q";
+	char *a = "a";
+	unsigned int q_len = strlen(q);
+	unsigned int a_len = strlen(a);
+
+	for(unsigned int i = 0; i < 20; i++) {
+		bank_add_card(b, card_ctor(q, q_len, a, a_len));
+	}
+
+	assert(bank_get_num_cards(b) == 20);
 }
