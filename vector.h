@@ -64,4 +64,8 @@ void
 vector_pop_back
 (struct vector *b);
 
+void 
+vector_uninitialize
+(struct vector *v);
+
 #endif

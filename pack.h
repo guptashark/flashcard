@@ -1,13 +1,16 @@
 #ifndef __PACK_H__
 #define __PACK_H__
+// needed stl 
+#include "vector.h"
 
+// needed project structures
 #include "card.h"
 
 struct pack {
 
-	struct card **cards;
-	unsigned int num_cards;
-	unsigned int capacity;
+	// design decision: use the vector itself, 
+	// vs a pointer to a vector. 
+	struct vector cards;
 };
 
 struct pack *

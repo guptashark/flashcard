@@ -85,3 +85,11 @@ vector_pop_back
 (struct vector *v) {
 	v->size--;	
 }
+
+void 
+vector_uninitialize
+(struct vector *v) {
+	free( v->arr);
+	v->size = 0;
+	v->capacity = 0;
+}
