@@ -2,11 +2,13 @@
 #include <string.h>
 #include <assert.h>
 
+#include "sstring.h"
 #include "pack.h"
 #include "card.h"
 
 void card_test(void);
 void pack_test(void);
+void string_test(void);
 
 int main(int argc, char *argv[]) {
 
@@ -16,6 +18,8 @@ int main(int argc, char *argv[]) {
 	printf("flashcard: (Version Number)\n");
 
 	card_test();
+	pack_test();
+	string_test();
 	return 0;
 }
 
@@ -45,4 +49,18 @@ void pack_test(void) {
 	}
 
 	assert(pack_get_num_cards(b) == 20);
+}
+
+void string_test(void) {
+
+	// empty construction 
+	struct string s1;
+	string_init(&s1);
+	string_printf(&s1);
+
+	struct string s2;
+	string_init_literal(&s2, "string_2");
+	string_printf(&s2);
+	puts("\n");
+
 }
