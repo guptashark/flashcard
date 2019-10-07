@@ -6,35 +6,70 @@
 
 #include "sstring.h"
 
-void
-string_init
-(struct string *s) {
+struct string {
+
+	uint32_t size;
+	uint32_t capacity;
+	char *arr;
+};
+
+///////////////////////////////////
+// constructors and destructors
+///////////////////////////////////
+
+// helper ctor
+// isn't available to the user
+// and is used internally by other ctors.
+static
+struct string *
+string_ctor_helper
+(uint32_t capacity) {
+
+	struct string *s = malloc(sizeof(struct string));
 	s->size = 0;
-	s->capacity = 32;
+	s->capacity = capacity;
 	s->arr = malloc(sizeof(char) * s->capacity);
+	return s;
+}
+
+// 1: default ctor
+struct string *
+string_ctor_default
+(void) {
+
+	struct string *s = string_ctor_helper(32);
+	return s;
+}
+
+// 5: literal constructor
+// NOT FINISHED!!!
+struct string *
+string_ctor_literal
+(const char *lit) {
+
+	size_t len = strlen(lit);
+	(void)len;
+	struct string *s = string_ctor_helper(32);
+	return s;
+}
+
+// 7: copy constructor
+struct string *
+string_ctor_copy
+(const struct string *t) {
+
+	struct string *s = string_ctor_helper(t->capacity);
+	s->size = t->size;
+	strcpy(s->arr, t->arr);
+	return s;
 }
 
 void
-string_init_literal
-(struct string *s, const char *str) {
-
-	s->size = strlen(str);
-	s->capacity = (2 + (s->size / 32)) * 32;
-	s->arr = malloc(sizeof(char) * s->capacity);
-	strcpy(s->arr, str);
+string_dtor
+(struct string *s) {
+	free(s->arr);
+	free(s);
 }
-
-// TODO - does strcpy copy the null terminator? 
-void
-string_init_copy
-(struct string *s, const struct string *src) {
-
-	s->size = src->size;
-	s->capacity = src->capacity;
-	s->arr = malloc(sizeof(char) * s->capacity);
-	strcpy(s->arr, src->arr);
-}
-
 int
 string_fprintf
 (struct string *s, FILE *f) {
@@ -45,13 +80,4 @@ int
 string_printf
 (struct string *s) {
 	return printf("%s", s->arr);
-}
-
-void 
-string_uninitialize
-(struct string *s) {
-	
-	s->size = 0;
-	s->capacity = 0;
-	free(s->arr);
 }

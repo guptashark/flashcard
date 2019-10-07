@@ -4,82 +4,88 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-// smart string library
-// doing some fun things with the types - 
-// guarantee that it's exactly a byte, 
-// or a 4 byte int. 
+// make visible a string pointer, and not much else.
+struct string;
 
-// TODO : should we... fix this? And use standard types? 
+// the headers are going to be largely similar to
+// string.h for C++
 
-struct string { 
+///////////////////////////////////
+// constructors and destructors
+///////////////////////////////////
 
-	// the 	
-	uint32_t size;
-	uint32_t capacity;
-	char *arr;
-};
+// 1: default constructor
+struct string *
+string_ctor_default
+(void);
 
-// the headers are going to be largely similar to string.h
+// 5: literal constructor
+struct string *
+string_ctor_literal
+(const char *lit);
 
-void 
-string_init
-(struct string *s);
+// 7: copy constructor
+// TODO is the const right? should there be more?
+struct string *
+string_ctor_copy
+(const struct string *t);
 
 void
-string_init_literal
-(struct string *s, const char *str);
-
-void
-string_init_copy
-(struct string *s, const struct string *src);
-
-// Can set the errno when out of range.
-void *
-string_at
-(struct string *s, unsigned int pos);
-
-
-// We will want to implement something like;
-// operator[] at some point.
-// TODO
-
-void *
-string_front
+string_dtor
 (struct string *s);
 
-void *
-string_back
-(struct string *s);
+//////////////////////
+// element access
+//////////////////////
 
+//////////////////////
+// capacity
+//////////////////////
+
+// empty
 bool
 string_empty
 (struct string *s);
 
+// size
 unsigned int
 string_size
 (struct string *s);
 
-// Later implement more of nice to have string features like: 
-// reserve, capacity, shrink_to_fit, etc. 
-
-void
-string_push_back
-(struct string *s, void *value);
-
-void
-string_pop_back
+// length
+unsigned int
+string_length
 (struct string *s);
+
+//////////////////////
+// operations
+//////////////////////
+
+// compare
+int
+string_compare_string
+(struct string *s, struct string *t);
+
+int
+string_compare_literal
+(struct string *s, const char *t);
+
+//////////////////////
+// file ops
+//////////////////////
+
+// we're using C style vs C++ style output.
 
 int
 string_fprintf
-(struct string *s, FILE *f);
+(struct string *s, FILE *out);
 
 int
 string_printf
 (struct string *s);
 
-void 
-string_uninitialize
-(struct string *s);
+// As of right now, we're fine with not having
+// the stdin and stdout versions, since we want
+// some basic working functionality
 
 #endif

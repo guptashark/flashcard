@@ -54,13 +54,11 @@ void pack_test(void) {
 void string_test(void) {
 
 	// empty construction 
-	struct string s1;
-	string_init(&s1);
-	string_printf(&s1);
+	struct string *s1 = string_ctor_default();
+	string_printf(s1);
 
-	struct string s2;
-	string_init_literal(&s2, "string_2");
-	string_printf(&s2);
+	struct string *s2 = string_ctor_literal("string_2");
+	string_printf(s2);
 	puts("\n");
 
 }
