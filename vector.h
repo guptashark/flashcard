@@ -2,36 +2,16 @@
 #define __VECTOR_H__
 
 #include <stdbool.h>
+#include <stdlib.h>
 
-struct vector {
-
-	void **arr;
-	unsigned int size;
-	unsigned int capacity;
-};
-
-// no ctor, just an init since we 
-// typically know when we're going 
-// to be using a vector, and don't 
-// need to be creating one on the 
-// heap. 
-//
-// Obviously, if things get too 
-// hairy, and we're creating 
-// lots of vectors left and right, 
-// we can switch the implementation 
-// to be a ctor with putting stuff
-// on the heap instead of the stack.
-
-void 
-vector_init
-(struct vector *v);
+struct vector *
+vector_ctor
+(void);
 
 // Can set the errno when out of range.
 void *
 vector_at
 (struct vector *v, unsigned int pos);
-
 
 // We will want to implement something like;
 // operator[] at some point.
@@ -49,7 +29,7 @@ bool
 vector_empty
 (struct vector *v);
 
-unsigned int
+size_t
 vector_size
 (struct vector *v);
 
@@ -65,7 +45,7 @@ vector_pop_back
 (struct vector *b);
 
 void 
-vector_uninitialize
+vector_dtor
 (struct vector *v);
 
 #endif

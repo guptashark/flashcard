@@ -2,17 +2,23 @@
 
 #include "vector.h"
 
+struct vector {
 
-// initializing a vector twice will cause 
-// a memory leak. 
-void 
-vector_init
-(struct vector *v) {
+	void **arr;
+	size_t size;
+	size_t capacity;
+};
 
+struct vector * 
+vector_ctor
+(void) {
+
+	struct vector *v = malloc(sizeof(struct vector));
 	v->size = 0;
 	// calculate a good capacity;
 	v->capacity = 16;
 	v->arr = malloc(sizeof(void *) * v->capacity);
+	return v;
 }
 
 // Can set the errno when out of range.
@@ -44,7 +50,7 @@ vector_empty
 	return (0 == v->size);
 }
 
-unsigned int
+size_t
 vector_size
 (struct vector *v) {
 	return v->size;
@@ -87,9 +93,8 @@ vector_pop_back
 }
 
 void 
-vector_uninitialize
+vector_dtor
 (struct vector *v) {
-	free( v->arr);
-	v->size = 0;
-	v->capacity = 0;
+	free(v->arr);
+	free(v);
 }
