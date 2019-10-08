@@ -21,7 +21,7 @@ int
 fc_shell_insert
 (struct fc_shell *fcs, struct string* s) {
 
-	return string_fprintf(s, fcs->output);
+	return string_fprintf(fcs->output, s);
 }
 
 void

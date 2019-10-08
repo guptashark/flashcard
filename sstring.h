@@ -78,7 +78,7 @@ string_compare_literal
 
 int
 string_fprintf
-(struct string *s, FILE *out);
+(FILE *f, struct string *s);
 
 int
 string_printf

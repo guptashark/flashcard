@@ -90,7 +90,7 @@ string_compare_literal
 
 int
 string_fprintf
-(struct string *s, FILE *f) {
+(FILE *f, struct string *s) {
 	return fprintf(f, "%s", s->arr);
 }
 
