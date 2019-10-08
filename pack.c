@@ -2,6 +2,10 @@
 
 #include "pack.h"
 
+struct pack {
+	struct vector * cards;
+};
+
 struct pack *
 pack_ctor(void) {
 
