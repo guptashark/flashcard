@@ -6,6 +6,7 @@
 #include "pack.h"
 #include "card.h"
 
+void fc_shell_test(void);
 void card_test(void);
 void pack_test(void);
 void string_test(void);
@@ -72,4 +73,9 @@ void string_test(void) {
 	string_printf(s2);
 	puts("\n");
 
+}
+
+
+void fc_shell_test(void) {
+	// TODO the test itself.
 }
