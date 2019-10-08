@@ -32,9 +32,8 @@ void card_test(void) {
 
 	struct card *c1 = card_ctor(q1_s, a1_s);
 
-//	TODO: Replace these with smart string equal.
-//	assert(0 == strcmp(q1, card_get_question(c1)));
-// 	assert(0 == strcmp(a1, card_get_answer(c1)));
+	assert(0 == string_compare_literal(card_get_question(c1), q1));
+	assert(0 == string_compare_literal(card_get_answer(c1), a1));
 
 	card_dtor(c1);
 	string_dtor(q1_s);

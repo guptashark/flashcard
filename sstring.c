@@ -8,8 +8,8 @@
 
 struct string {
 
-	uint32_t size;
-	uint32_t capacity;
+	size_t size;
+	size_t capacity;
 	char *arr;
 };
 
@@ -23,7 +23,7 @@ struct string {
 static
 struct string *
 string_ctor_helper
-(uint32_t capacity) {
+(size_t capacity) {
 
 	struct string *s = malloc(sizeof(struct string));
 	s->size = 0;
@@ -42,14 +42,15 @@ string_ctor_default
 }
 
 // 5: literal constructor
-// NOT FINISHED!!!
 struct string *
 string_ctor_literal
 (const char *lit) {
 
 	size_t len = strlen(lit);
-	(void)len;
-	struct string *s = string_ctor_helper(32);
+	size_t capacity = (2 + (len / 32)) * 32;
+	struct string *s = string_ctor_helper(capacity);
+	s->size = len;
+	strcpy(s->arr, lit);
 	return s;
 }
 
@@ -63,13 +64,30 @@ string_ctor_copy
 	strcpy(s->arr, t->arr);
 	return s;
 }
-
 void
 string_dtor
 (struct string *s) {
 	free(s->arr);
 	free(s);
 }
+
+//////////////////////
+// operations
+//////////////////////
+
+// compare
+int
+string_compare_string
+(struct string *s, struct string *t) {
+	return strcmp(s->arr, t->arr);
+}
+
+int
+string_compare_literal
+(struct string *s, const char *t) {
+	return strcmp(s->arr, t);
+}
+
 int
 string_fprintf
 (struct string *s, FILE *f) {
