@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 
+#include "vector.h"
 #include "sstring.h"
 
 struct fc_shell;
@@ -13,7 +14,15 @@ fc_shell_ctor
 
 int
 fc_shell_insert
-(struct fc_shell *fcs, struct string* s);
+(struct fc_shell *fcs, struct string *s);
+
+int
+fc_shell_extract
+(struct fc_shell *fcs, struct vector ** data);
+
+void
+fc_shell_extraction_dtor
+(struct fc_shell *fcs, struct vector *data);
 
 void
 fc_shell_dtor
