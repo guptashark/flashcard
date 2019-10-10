@@ -24,7 +24,7 @@ vector_ctor
 // Can set the errno when out of range.
 void *
 vector_at
-(struct vector *v, unsigned int pos) {
+(struct vector *v, size_t pos) {
 	return v->arr[pos];
 }
 
