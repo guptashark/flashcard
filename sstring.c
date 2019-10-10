@@ -71,6 +71,17 @@ string_dtor
 	free(s);
 }
 
+
+//////////////////////
+// capacity
+//////////////////////
+
+size_t
+string_size
+(struct string *s) {
+	return s->size;
+}
+
 //////////////////////
 // operations
 //////////////////////

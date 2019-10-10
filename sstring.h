@@ -48,12 +48,12 @@ string_empty
 (struct string *s);
 
 // size
-unsigned int
+size_t
 string_size
 (struct string *s);
 
 // length
-unsigned int
+size_t
 string_length
 (struct string *s);
 
