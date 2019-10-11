@@ -24,35 +24,22 @@ fc_shell_insert
 	return string_fprintf(fcs->output, s);
 }
 
-// TODO: this is just a sample function for now.
 int
 fc_shell_extract
-(struct fc_shell *fcs, struct vector ** data) {
+(struct fc_shell *fcs, struct string * s) {
 
-	(void)fcs;
+	const int buff_size = 1024;
+	char buff[buff_size];
 
-	struct vector *v = vector_ctor();
-	struct string *s1 = string_ctor_literal("Hello");
-	struct string *s2 = string_ctor_literal("World!");
+	char *ret = fgets(buff, buff_size, fcs->input);
 
-	vector_push_back(v, s1);
-	vector_push_back(v, s2);
-
-	*data = v;
-	return 0;
-}
-
-void
-fc_shell_extraction_dtor
-(struct fc_shell *fcs, struct vector *data) {
-
-	(void)fcs;
-
-	for(size_t i = 0; i < vector_size(data); i++) {
-		string_dtor(vector_at(data, i));
+	if(NULL == ret) {
+		string_assign_literal(s, "EOF reached");
+	} else {
+		string_assign_literal(s, buff);
 	}
 
-	vector_dtor(data);
+	return 0;
 }
 
 void
