@@ -71,6 +71,23 @@ string_dtor
 	free(s);
 }
 
+struct string *
+string_assign_literal
+(struct string *s, const char *lit) {
+
+	size_t len = strlen(lit);
+
+	if ( len >= s->size ) {
+		free(s->arr);
+		s->capacity = (2 + (len / 32) * 32);
+		s->arr = malloc(sizeof(char) * s->capacity);
+	}
+
+	strcpy(s->arr, lit);
+	s->size = len;
+
+	return s;
+}
 
 //////////////////////
 // capacity

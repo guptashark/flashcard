@@ -34,6 +34,13 @@ void
 string_dtor
 (struct string *s);
 
+// it's weird that in the C++ stl the return type
+// is the string itself. Perhaps to maintain
+// consistency with the operator= function?
+struct string *
+string_assign_literal
+(struct string *s, const char *lit);
+
 //////////////////////
 // element access
 //////////////////////
