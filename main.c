@@ -2,6 +2,8 @@
 #include <string.h>
 #include <assert.h>
 
+#include "interpreter.h"
+#include "fc_shell.h"
 #include "sstring.h"
 #include "pack.h"
 #include "card.h"
@@ -10,6 +12,7 @@ void fc_shell_test(void);
 void card_test(void);
 void pack_test(void);
 void string_test(void);
+void run_tests(void);
 
 int main(int argc, char *argv[]) {
 
@@ -18,10 +21,19 @@ int main(int argc, char *argv[]) {
 
 	printf("flashcard: (Version Number)\n");
 
+	struct interpreter *intp = interpreter_ctor();
+	interpreter_run(intp);
+	interpreter_dtor(intp);
+
+	return 0;
+}
+
+void run_tests(void) {
+
 	card_test();
 	pack_test();
 	string_test();
-	return 0;
+	fc_shell_test();
 }
 
 void card_test(void) {
@@ -56,7 +68,7 @@ void pack_test(void) {
 		pack_add_card(p, c);
 	}
 
-	assert(pack_get_num_cards(p) == 20);
+	assert(pack_size(p) == 20);
 
 	pack_dtor(p);
 	string_dtor(q1_s);
@@ -65,7 +77,7 @@ void pack_test(void) {
 
 void string_test(void) {
 
-	// empty construction 
+	// empty construction
 	struct string *s1 = string_ctor_default();
 	string_printf(s1);
 
@@ -77,5 +89,15 @@ void string_test(void) {
 
 
 void fc_shell_test(void) {
-	// TODO the test itself.
+	struct fc_shell *fcs = fc_shell_ctor(stdin, stdout);
+
+	const char *query_s = "Hi, please enter a string: ";
+	struct string *query = string_ctor_literal(query_s);
+	struct string *answer = string_ctor_default();
+
+	fc_shell_insert(fcs, query);
+
+	fc_shell_extract(fcs, answer);
+	fc_shell_insert(fcs, answer);
+
 }
