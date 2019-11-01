@@ -16,13 +16,19 @@ pack_ctor(void) {
 }
 
 size_t
-pack_get_num_cards(struct pack *p) {
+pack_size(struct pack *p) {
 	return vector_size(p->cards);
 }
 
 void
 pack_add_card(struct pack *p, struct card *c) {
 	vector_push_back(p->cards, c);
+}
+
+// TODO: size check?
+struct card *
+pack_card_at(struct pack *p, size_t i) {
+	return vector_at(p->cards, i);
 }
 
 void 
