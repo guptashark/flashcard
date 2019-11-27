@@ -79,7 +79,8 @@ string_assign_literal
 
 	if ( len >= s->size ) {
 		free(s->arr);
-		s->capacity = (2 + (len / 32) * 32);
+		// this doesn't look like great code... but ok.
+		s->capacity = ((2 + (len / 32)) * 32);
 		s->arr = malloc(sizeof(char) * s->capacity);
 	}
 
