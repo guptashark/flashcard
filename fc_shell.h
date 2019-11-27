@@ -8,6 +8,8 @@
 
 struct fc_shell;
 
+// We're doing it this way because eventually we'll
+// want it to be done using ncurses.
 struct fc_shell *
 fc_shell_ctor
 (FILE *input, FILE *output);
@@ -20,6 +22,10 @@ fc_shell_insert
 // will populate with the contents of the read
 int
 fc_shell_extract
+(struct fc_shell *fcs, struct string * data);
+
+int
+fc_shell_getline
 (struct fc_shell *fcs, struct string * data);
 
 void

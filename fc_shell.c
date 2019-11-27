@@ -42,6 +42,28 @@ fc_shell_extract
 	return 0;
 }
 
+int
+fc_shell_getline
+(struct fc_shell *fcs, struct string * s) {
+	const int buff_size = 1024;
+	char buff[buff_size];
+
+	int i = 0;
+
+	do {
+		// todo - is this cast okay?
+		// should we check for stuff...
+		buff[i] = (char)(fgetc(fcs->input));
+		i++;
+	} while ( buff[i-1] != '\n');
+
+	// null terminate the buffer.
+	buff[i] = '\0';
+	string_assign_literal(s, buff);
+
+	return 0;
+}
+
 void
 fc_shell_dtor
 (struct fc_shell *fcs) {
