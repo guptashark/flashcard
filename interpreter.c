@@ -63,23 +63,23 @@ interpreter_load_pack
 	struct string *a = string_ctor_default();
 
 	int num_items = 0;
-	fscanf(pack_path, "%d", &num_items);
+	fscanf(pack_path, "%d\n", &num_items);
+
+	struct fc_shell * fs = fc_shell_ctor(pack_path, NULL);
 
 	for (int i = 0; i < num_items; i++) {
-		char q_buff[64];
-		char a_buff[64];
-		fscanf(pack_path, "%s", q_buff);
-		fscanf(pack_path, "%s", a_buff);
-
-		string_assign_literal(q, q_buff);
-		string_assign_literal(a, a_buff);
+		fc_shell_getline(fs, q);
+		fc_shell_getline(fs, a);
 
 		struct card * c = card_ctor(q, a);
 		pack_add_card(p, c);
 	}
+	
+	fc_shell_dtor(fs);
 
 	string_dtor(q);
 	string_dtor(a);
+
 
 	return p;
 }
@@ -90,17 +90,19 @@ interpreter_use_pack
 (struct interpreter *inptr, struct pack *p) {
 	(void)inptr;
 
-	printf("%p\n", (void *)p);
 	struct card *c;
 
 	for(size_t i = 0; i < pack_size(p); i++) {
 		c = pack_card_at(p, i);
 
 		string_printf(card_get_question(c));
-		//fc_shell_insert(inptr->fcs, card_get_question(c));
-
+		// fc_shell_insert(inptr->fcs, card_get_question(c));
+		
 		char a_buff[64];
+
 		scanf("%s", a_buff);
+		string_printf(card_get_answer(c));
+
 	}
 }
 
@@ -139,12 +141,9 @@ interpreter_run
 	// do this properly??
 
 	// load the pack.
-	printf("here...\n");
 	FILE * bio_notes = fopen("bio_notes.txt", "r");
-	printf("here...\n");
 
 	struct pack * bio_cards = interpreter_load_pack(inptr, bio_notes);
-	printf("here...\n");
 
 	interpreter_use_pack(inptr, bio_cards);
 
